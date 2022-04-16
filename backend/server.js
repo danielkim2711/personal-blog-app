@@ -4,4 +4,7 @@ const port = process.env.PORT || 8000;
 
 const app = express();
 
+// Routes
+app.use('/api/posts', require('./routes/postRoutes'));
+
 app.listen(port, () => console.log(`Server started on PORT ${port}`));
