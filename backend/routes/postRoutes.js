@@ -9,6 +9,8 @@ const {
 } = require('../controllers/postController');
 const protect = require('../middleware/authMiddleware');
 
+router.use('/:postId/comments', require('./commentRoutes'));
+
 router.route('/').get(protect, getPosts).post(protect, createPost);
 router
   .route('/:id')

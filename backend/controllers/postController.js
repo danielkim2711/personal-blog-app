@@ -31,6 +31,11 @@ const getPost = asyncHandler(async (req, res) => {
 const createPost = asyncHandler(async (req, res) => {
   const { title, body, category } = req.body;
 
+  if (!title || !body || !category) {
+    res.status(400);
+    throw new Error('Please add all fields');
+  }
+
   const post = await Post.create({
     user: req.user._id,
     title,
