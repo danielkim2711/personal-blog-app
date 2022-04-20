@@ -32,6 +32,7 @@ const createPost = asyncHandler(async (req, res) => {
   const { title, body, category } = req.body;
 
   const post = await Post.create({
+    user: req.user._id,
     title,
     body,
     category,
@@ -51,6 +52,11 @@ const updatePost = asyncHandler(async (req, res) => {
     throw new Error('Post not found');
   }
 
+  if (post.user.toString() !== req.user._id.toString()) {
+    res.status(401);
+    throw new Error('Not Authorised');
+  }
+
   const updatedPost = await Post.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
   });
@@ -67,6 +73,11 @@ const deletePost = asyncHandler(async (req, res) => {
   if (!post) {
     res.status(400);
     throw new Error('Post not found');
+  }
+
+  if (post.user.toString() !== req.user._id.toString()) {
+    res.status(401);
+    throw new Error('Not Authorised');
   }
 
   await post.remove();
