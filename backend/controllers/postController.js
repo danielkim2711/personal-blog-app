@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler');
 
 const Post = require('../models/postModel');
+const Comment = require('../models/commentModel');
 
 // @desc    Get posts
 // @route   GET /api/posts
@@ -85,9 +86,10 @@ const deletePost = asyncHandler(async (req, res) => {
     throw new Error('Not Authorised');
   }
 
+  await Comment.find({ post: req.params.id }).remove();
   await post.remove();
 
-  res.status(200).json({ success: true });
+  res.status(200).json({ _id: req.params.id, success: true });
 });
 
 module.exports = {

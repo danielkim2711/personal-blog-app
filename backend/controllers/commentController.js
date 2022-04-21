@@ -90,7 +90,7 @@ const deleteComment = asyncHandler(async (req, res) => {
   if (comment && (await bcrypt.compare(password, comment.password))) {
     await comment.remove();
 
-    res.status(200).json({ success: true });
+    res.status(200).json({ _id: req.params.id, success: true });
   } else {
     res.status(400);
     throw new Error('Password does not match');
