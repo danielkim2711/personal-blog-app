@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const bcrypt = require('bcryptjs');
 
+const User = require('../models/userModel');
 const Comment = require('../models/commentModel');
 
 // @desc    Get comments
@@ -73,13 +74,9 @@ const updateComment = asyncHandler(async (req, res) => {
 // @route   PUT /api/posts/:postId/comments/:id
 // @access  Private
 const deleteComment = asyncHandler(async (req, res) => {
-  const { password } = req.body;
+  const { _id, password } = req.body;
 
-  if (!password) {
-    res.status(400);
-    throw new Error('Please enter your password');
-  }
-
+  const user = await User.findById(_id);
   const comment = await Comment.findById(req.params.id);
 
   if (!comment) {
@@ -87,13 +84,29 @@ const deleteComment = asyncHandler(async (req, res) => {
     throw new Error('Comment not found');
   }
 
-  if (comment && (await bcrypt.compare(password, comment.password))) {
+  if (!user) {
+    if (!password) {
+      res.status(400);
+      throw new Error('Please enter your password');
+    }
+
+    if (comment && (await bcrypt.compare(password, comment.password))) {
+      await comment.remove();
+
+      res.status(200).json({ _id: req.params.id, success: true });
+    } else {
+      res.status(400);
+      throw new Error('Password does not match');
+    }
+  }
+
+  if (user && user.isAdmin) {
     await comment.remove();
 
     res.status(200).json({ _id: req.params.id, success: true });
   } else {
     res.status(400);
-    throw new Error('Password does not match');
+    throw new Error('You are not authorised');
   }
 });
 
