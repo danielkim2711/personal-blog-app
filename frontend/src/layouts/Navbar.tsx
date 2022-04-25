@@ -4,11 +4,11 @@ import { GiHamburgerMenu } from 'react-icons/gi';
 
 const Navbar = () => {
   return (
-    <div className='navbar bg-base-100 border-b-2'>
+    <div className='navbar bg-base-100 border-b-4 2xl:min-h-[5rem]'>
       <div className='navbar-start'>
         <div className='dropdown'>
           <label tabIndex={0} className='btn btn-ghost btn-circle'>
-            <GiHamburgerMenu className='w-5 h-5' />
+            <GiHamburgerMenu className='w-5 h-5 2xl:w-7 2xl:h-7' />
           </label>
           <ul
             tabIndex={0}
@@ -24,17 +24,17 @@ const Navbar = () => {
         </div>
       </div>
       <div className='navbar-center'>
-        <Link to='/' className='font-semibold text-xl'>
+        <Link to='/' className='font-semibold text-xl 2xl:text-2xl'>
           Daniel's Blog
         </Link>
       </div>
       <div className='navbar-end'>
         <button className='btn btn-ghost btn-circle'>
-          <FaSearch className='w-5 h-5' />
+          <FaSearch className='w-5 h-5 2xl:w-7 2xl:h-7' />
         </button>
         <button className='btn btn-ghost btn-circle'>
           <Link to='/login'>
-            <FaSignInAlt className='w-5 h-5' />
+            <FaSignInAlt className='w-5 h-5 2xl:w-7 2xl:h-7' />
           </Link>
         </button>
       </div>
