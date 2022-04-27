@@ -11,10 +11,10 @@ const protect = require('../middleware/authMiddleware');
 
 router.use('/:postId/comments', require('./commentRoutes'));
 
-router.route('/').get(protect, getPosts).post(protect, createPost);
+router.route('/').get(getPosts).post(protect, createPost);
 router
   .route('/:id')
-  .get(protect, getPost)
+  .get(getPost)
   .put(protect, updatePost)
   .delete(protect, deletePost);
 
