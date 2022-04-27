@@ -7,7 +7,7 @@ const Comment = require('../models/commentModel');
 // @route   GET /api/posts
 // @access  Public
 const getPosts = asyncHandler(async (req, res) => {
-  const posts = await Post.find();
+  const posts = await Post.find().sort({ createdAt: -1 });
 
   res.status(200).json(posts);
 });
