@@ -7,25 +7,35 @@ import Header from './components/Header';
 import Description from './components/Description';
 import PostList from './components/PostList';
 
+import Login from './pages/Login';
 import Post from './pages/Post';
 
 function App() {
   return (
     <>
       <Router>
-        <Navbar />
         <Routes>
           <Route
             path='/'
             element={
               <>
+                <Navbar />
                 <Header />
                 <Description />
                 <PostList />
               </>
             }
           />
-          <Route path='/posts/:postId' element={<Post />} />
+          <Route path='/login' element={<Login />} />
+          <Route
+            path='/posts/:postId'
+            element={
+              <>
+                <Navbar />
+                <Post />
+              </>
+            }
+          />
         </Routes>
       </Router>
       <ToastContainer />
