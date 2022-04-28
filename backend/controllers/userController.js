@@ -8,11 +8,11 @@ const User = require('../models/userModel');
 // @route   POST /api/users
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, imageUrl, email, password } = req.body;
 
   if (!name || !email || !password) {
     res.status(400);
-    throw new Error('Please add all fields');
+    throw new Error('Please add your name, email and password');
   }
 
   const userExists = await User.findOne({ email });
@@ -27,6 +27,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
   const user = await User.create({
     name,
+    imageUrl,
     email,
     password: hashedPassword,
   });
@@ -35,6 +36,7 @@ const registerUser = asyncHandler(async (req, res) => {
     res.status(201).json({
       _id: user._id,
       name: user.name,
+      imageUrl: user.imageUrl,
       email: user.email,
       token: generateToken(user._id),
     });
@@ -56,6 +58,7 @@ const loginUser = asyncHandler(async (req, res) => {
     res.status(200).json({
       _id: user._id,
       name: user.name,
+      imageUrl: user.imageUrl,
       email: user.email,
       token: generateToken(user._id),
     });
