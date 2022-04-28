@@ -25,7 +25,7 @@ function App() {
               </>
             }
           />
-          <Route path='/:postId' element={<Post />} />
+          <Route path='/posts/:postId' element={<Post />} />
         </Routes>
       </Router>
       <ToastContainer />

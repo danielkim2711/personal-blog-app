@@ -13,7 +13,7 @@ const Post = () => {
     (state: RootState) => state.posts
   );
 
-  const { title, user, imageUrl, body, category, createdAt } = post;
+  const { title, imageUrl, body, category, createdAt } = post;
 
   const dispatch = useAppDispatch();
 
@@ -57,7 +57,7 @@ const Post = () => {
               hour: 'numeric',
               minute: '2-digit',
             })
-            .replace(/\//gi, '. ')}
+            .replace(/[,/]/gi, '. ')}
         </p>
       </div>
       <img className='lg:w-full lg:h-auto' src={imageUrl} alt='' />

@@ -4,7 +4,7 @@ const PostItem = ({ post }: { post: any }) => {
   const { title, imageUrl, body, createdAt } = post;
 
   return (
-    <Link to={`/${post._id}`} className='lg:border-b-2 lg:mx-4'>
+    <Link to={`/posts/${post._id}`} className='lg:border-b-2 lg:mx-4'>
       <li className='flex p-4 justify-between border-b-2 cursor-pointer md:px-14 md:py-6 lg:px-0 lg:pt-5 lg:mx-0 lg:flex-col lg:justify-start lg:border-b-0'>
         {imageUrl ? (
           <>
