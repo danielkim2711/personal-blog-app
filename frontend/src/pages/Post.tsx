@@ -42,9 +42,11 @@ const Post = () => {
   }
 
   return (
-    <div className='mt-4 px-4 py-2'>
-      <p className='text-green-500 font-semibold text-sm'>{category}</p>
-      <h4 className='text-xl font-semibold'>{title}</h4>
+    <div className='mt-4 px-4 py-2 md:px-20 lg:px-40 xl:px-60 2xl:px-[500px] 3xl:px-[800px]'>
+      <p className='text-green-500 font-semibold text-sm md:text-lg'>
+        {category}
+      </p>
+      <h4 className='text-xl font-semibold md:text-3xl'>{title}</h4>
       <div className='border-b-2 py-8 mb-6'>
         <p className='text-sm'>Daniel Kim</p>
         <p className='text-gray-400 text-xs'>
@@ -60,7 +62,7 @@ const Post = () => {
             .replace(/[,/]/gi, '. ')}
         </p>
       </div>
-      <img className='lg:w-full lg:h-auto' src={imageUrl} alt='' />
+      <img className='' src={imageUrl} alt='' />
       <p className='py-8'>{body}</p>
       <div className='flex items-center mb-4'>
         <AiOutlineComment className='w-7 h-7' />
