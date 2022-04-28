@@ -1,20 +1,44 @@
 const PostItem = ({ post }: { post: any }) => {
+  const { title, imageUrl, body, createdAt } = post;
+
   return (
-    <li className='p-4 border-b-2 cursor-pointer md:px-14 md:py-6 lg:px-0 lg:pt-5 lg:mx-4'>
-      <h3 className='text-lg font-bold'>
-        {post.title.length > 40
-          ? post.title.substring(0, 40 - 1) + '...'
-          : post.title}
-      </h3>
-      {post.body.length > 45
-        ? post.body.substring(0, 45 - 1) + '...'
-        : post.body}
-      <p className='text-gray-500'>{}</p>
-      <div className='text-gray-400 mt-2 text-xs'>
-        {new Date(post.createdAt)
-          .toLocaleDateString('en-NZ')
-          .replace(/\//gi, '. ')}
-      </div>
+    <li className='flex p-4 justify-between border-b-2 cursor-pointer md:px-14 md:py-6 lg:px-0 lg:pt-5 lg:mx-4 lg:flex-col lg:justify-start'>
+      {imageUrl ? (
+        <>
+          <div className='mr-2 lg:order-1 lg:mt-2.5'>
+            <h3 className='text-lg font-medium'>
+              {title.length > 40 ? title.substring(0, 40 - 1) + '...' : title}
+            </h3>
+            <p className='text-gray-500'>
+              {body.length > 50 ? body.substring(0, 50 - 1) + '...' : body}
+            </p>
+            <div className='text-gray-400 mt-2 text-xs'>
+              {new Date(createdAt)
+                .toLocaleDateString('en-NZ')
+                .replace(/\//gi, '. ')}
+            </div>
+          </div>
+          <img
+            className='rounded-md w-24 h-24 lg:w-full lg:h-auto'
+            src={imageUrl}
+            alt=''
+          />
+        </>
+      ) : (
+        <div>
+          <h3 className='text-lg font-medium'>
+            {title.length > 40 ? title.substring(0, 40 - 1) + '...' : title}
+          </h3>
+          <p className='text-gray-500'>
+            {body.length > 50 ? body.substring(0, 50 - 1) + '...' : body}
+          </p>
+          <div className='text-gray-400 mt-2 text-xs'>
+            {new Date(createdAt)
+              .toLocaleDateString('en-NZ')
+              .replace(/\//gi, '. ')}
+          </div>
+        </div>
+      )}
     </li>
   );
 };

@@ -11,6 +11,10 @@ const postSchema = mongoose.Schema(
       type: String,
       required: [true, 'Please add a title'],
     },
+    imageUrl: {
+      type: String,
+      default: '',
+    },
     body: {
       type: String,
       required: [true, 'Please add a body'],

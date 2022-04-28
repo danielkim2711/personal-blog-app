@@ -30,7 +30,7 @@ const getPost = asyncHandler(async (req, res) => {
 // @route   POST /api/posts
 // @access  Private
 const createPost = asyncHandler(async (req, res) => {
-  const { title, body, category } = req.body;
+  const { title, imageUrl, body, category } = req.body;
 
   if (!title || !body || !category) {
     res.status(400);
@@ -40,6 +40,7 @@ const createPost = asyncHandler(async (req, res) => {
   const post = await Post.create({
     user: req.user._id,
     title,
+    imageUrl,
     body,
     category,
   });

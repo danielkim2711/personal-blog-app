@@ -40,7 +40,7 @@ const PostList = () => {
       <p className='p-4 border-b-2 font-semibold text-center'>RECENT POSTS</p>
       {posts.length > 0 ? (
         <div className='lg:flex lg:justify-center'>
-          <ul className='lg:max-w-[682px] lg:mx-12 lg:grid lg:grid-cols-2 lg:justify-center'>
+          <ul className='lg:max-w-[672px] lg:grid lg:grid-cols-2'>
             {posts.map((post) => (
               <PostItem key={post._id} post={post} />
             ))}
