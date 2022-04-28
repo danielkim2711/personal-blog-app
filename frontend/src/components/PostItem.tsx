@@ -15,11 +15,11 @@ const PostItem = ({ post }: { post: any }) => {
               <p className='text-gray-500'>
                 {body.length > 50 ? body.substring(0, 50 - 1) + '...' : body}
               </p>
-              <div className='text-gray-400 mt-2 text-xs'>
+              <p className='text-gray-400 mt-2 text-xs'>
                 {new Date(createdAt)
                   .toLocaleDateString('en-NZ')
                   .replace(/\//gi, '. ')}
-              </div>
+              </p>
             </div>
             <img
               className='rounded-md w-24 h-24 object-cover lg:w-full lg:h-auto'
@@ -35,11 +35,11 @@ const PostItem = ({ post }: { post: any }) => {
             <p className='text-gray-500'>
               {body.length > 50 ? body.substring(0, 50 - 1) + '...' : body}
             </p>
-            <div className='text-gray-400 mt-2 text-xs'>
+            <p className='text-gray-400 mt-2 text-xs'>
               {new Date(createdAt)
                 .toLocaleDateString('en-NZ')
                 .replace(/\//gi, '. ')}
-            </div>
+            </p>
           </div>
         )}
       </li>
