@@ -8,8 +8,15 @@ const getPosts = async () => {
   return response.data;
 };
 
+const getPost = async (postId: string) => {
+  const response = await axios.get(`${API_URL}${postId}`);
+
+  return response.data;
+};
+
 const postService = {
   getPosts,
+  getPost,
 };
 
 export default postService;

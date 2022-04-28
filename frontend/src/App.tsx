@@ -1,4 +1,4 @@
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -7,14 +7,26 @@ import Header from './components/Header';
 import Description from './components/Description';
 import PostList from './components/PostList';
 
+import Post from './pages/Post';
+
 function App() {
   return (
     <>
       <Router>
         <Navbar />
-        <Header />
-        <Description />
-        <PostList />
+        <Routes>
+          <Route
+            path='/'
+            element={
+              <>
+                <Header />
+                <Description />
+                <PostList />
+              </>
+            }
+          />
+          <Route path='/:postId' element={<Post />} />
+        </Routes>
       </Router>
       <ToastContainer />
     </>
