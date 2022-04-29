@@ -5,6 +5,8 @@ import { useAppSelector, useAppDispatch } from '../app/hooks';
 import { getPost, reset } from '../features/posts/postSlice';
 import { toast } from 'react-toastify';
 
+import { FaRegCopy } from 'react-icons/fa';
+import { BsThreeDotsVertical } from 'react-icons/bs';
 import CommentList from '../components/CommentList';
 import Spinner from '../assets/images/spinner.gif';
 
@@ -47,7 +49,7 @@ const Post = () => {
         {category}
       </p>
       <h4 className='text-xl font-semibold md:text-3xl'>{title}</h4>
-      <div className='border-b-2 py-7 mb-6'>
+      <div className='flex justify-between items-center border-b-2 py-7 mb-6'>
         <div className='flex items-center'>
           <Link to='/'>
             <div className='avatar mr-2.5'>
@@ -76,6 +78,28 @@ const Post = () => {
                 .replace(/[,/]/gi, '. ')}
             </p>
           </div>
+        </div>
+
+        <div className='dropdown dropdown-end'>
+          <label tabIndex={0} className=''>
+            <BsThreeDotsVertical className='w-6 h-6 cursor-pointer' />
+          </label>
+          <ul
+            tabIndex={0}
+            className='dropdown-content menu mt-2 p-2 shadow bg-base-100 rounded-box w-52'
+          >
+            <li>
+              <div
+                onClick={() => {
+                  navigator.clipboard.writeText(window.location.href);
+                  toast.success('Link Copied!');
+                }}
+              >
+                <p>Copy URL</p>
+                <FaRegCopy />
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
       <img src={imageUrl} alt='' />
