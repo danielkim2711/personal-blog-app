@@ -1,8 +1,24 @@
-import { Link } from 'react-router-dom';
-import { FaSearch, FaSignInAlt } from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router-dom';
+import { RootState } from '../app/store';
+import { useAppSelector, useAppDispatch } from '../app/hooks';
+import { logout, reset } from '../features/auth/authSlice';
+
 import { GiHamburgerMenu } from 'react-icons/gi';
+import { FaSearch, FaSignInAlt, FaPencilAlt } from 'react-icons/fa';
+import { GoSignOut } from 'react-icons/go';
 
 const Navbar = () => {
+  const { user } = useAppSelector((state: RootState) => state.auth);
+
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    dispatch(reset());
+    navigate('/');
+  };
+
   return (
     <div className='navbar bg-base-100 border-b-4 2xl:min-h-[5rem]'>
       <div className='navbar-start'>
@@ -32,11 +48,22 @@ const Navbar = () => {
         <button className='btn btn-ghost btn-circle'>
           <FaSearch className='w-5 h-5 2xl:w-7 2xl:h-7' />
         </button>
-        <button className='btn btn-ghost btn-circle'>
-          <Link to='/login'>
-            <FaSignInAlt className='w-5 h-5 2xl:w-7 2xl:h-7' />
-          </Link>
-        </button>
+        {user ? (
+          <>
+            <button className='btn btn-ghost btn-circle'>
+              <FaPencilAlt className='w-5 h-5 2xl:w-7 2xl:h-7' />
+            </button>
+            <button className='btn btn-ghost btn-circle' onClick={handleLogout}>
+              <GoSignOut className='w-5 h-5 2xl:w-7 2xl:h-7' />
+            </button>
+          </>
+        ) : (
+          <button className='btn btn-ghost btn-circle'>
+            <Link to='/login'>
+              <FaSignInAlt className='w-5 h-5 2xl:w-7 2xl:h-7' />
+            </Link>
+          </button>
+        )}
       </div>
     </div>
   );
