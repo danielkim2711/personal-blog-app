@@ -5,8 +5,10 @@ import { useAppSelector, useAppDispatch } from '../app/hooks';
 import { getPost, reset } from '../features/posts/postSlice';
 import { toast } from 'react-toastify';
 
-import { FaRegCopy } from 'react-icons/fa';
 import { BsThreeDotsVertical } from 'react-icons/bs';
+import { HiOutlinePencilAlt } from 'react-icons/hi';
+import { RiDeleteBin6Line } from 'react-icons/ri';
+import { FaRegCopy } from 'react-icons/fa';
 import CommentList from '../components/CommentList';
 import Spinner from '../assets/images/spinner.gif';
 
@@ -14,6 +16,8 @@ const Post = () => {
   const { post, isError, isLoading, message } = useAppSelector(
     (state: RootState) => state.posts
   );
+
+  const { user } = useAppSelector((state: RootState) => state.auth);
 
   const { title, imageUrl, body, category, createdAt } = post;
 
@@ -88,6 +92,22 @@ const Post = () => {
             tabIndex={0}
             className='dropdown-content menu mt-2 p-2 shadow bg-base-100 rounded-box w-52'
           >
+            {user && (
+              <>
+                <li>
+                  <Link to={`/posts/${postId}/update-post`}>
+                    <p>Update Post</p>
+                    <HiOutlinePencilAlt className='w-5 h-5' />
+                  </Link>
+                </li>
+                <li>
+                  <div className='text-red-500'>
+                    <p>Delete Post</p>
+                    <RiDeleteBin6Line className='w-5 h-5' />
+                  </div>
+                </li>
+              </>
+            )}
             <li>
               <div
                 onClick={() => {

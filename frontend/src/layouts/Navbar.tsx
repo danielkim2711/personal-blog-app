@@ -41,7 +41,7 @@ const Navbar = () => {
               <li>
                 <Link to='/new-post'>
                   <HiOutlinePencilAlt className='w-5 h-5 2xl:w-7 2xl:h-7' />
-                  Write Post
+                  <p>Write Post</p>
                 </Link>
               </li>
             )}
