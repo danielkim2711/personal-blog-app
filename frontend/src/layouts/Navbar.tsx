@@ -4,7 +4,8 @@ import { useAppSelector, useAppDispatch } from '../app/hooks';
 import { logout, reset } from '../features/auth/authSlice';
 
 import { GiHamburgerMenu } from 'react-icons/gi';
-import { FaSearch, FaSignInAlt, FaPencilAlt } from 'react-icons/fa';
+import { FaSearch, FaSignInAlt } from 'react-icons/fa';
+import { HiOutlinePencilAlt } from 'react-icons/hi';
 import { GoSignOut } from 'react-icons/go';
 
 const Navbar = () => {
@@ -28,7 +29,7 @@ const Navbar = () => {
           </label>
           <ul
             tabIndex={0}
-            className='menu dropdown-content mt-3 p-1 shadow bg-base-100 rounded-box w-52'
+            className='menu dropdown-content mt-4 p-2 shadow bg-base-100 rounded-box w-52'
           >
             <li>
               <Link to='/about'>About</Link>
@@ -36,6 +37,14 @@ const Navbar = () => {
             <li>
               <Link to='/portfolio'>Portfolio</Link>
             </li>
+            {user && (
+              <li>
+                <Link to='/new-post'>
+                  <HiOutlinePencilAlt className='w-5 h-5 2xl:w-7 2xl:h-7' />
+                  Write Post
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
       </div>
@@ -49,20 +58,15 @@ const Navbar = () => {
           <FaSearch className='w-5 h-5 2xl:w-7 2xl:h-7' />
         </button>
         {user ? (
-          <>
-            <button className='btn btn-ghost btn-circle'>
-              <FaPencilAlt className='w-5 h-5 2xl:w-7 2xl:h-7' />
-            </button>
-            <button className='btn btn-ghost btn-circle' onClick={handleLogout}>
-              <GoSignOut className='w-5 h-5 2xl:w-7 2xl:h-7' />
-            </button>
-          </>
-        ) : (
-          <button className='btn btn-ghost btn-circle'>
-            <Link to='/login'>
-              <FaSignInAlt className='w-5 h-5 2xl:w-7 2xl:h-7' />
-            </Link>
+          <button className='btn btn-ghost btn-circle' onClick={handleLogout}>
+            <GoSignOut className='w-5 h-5 2xl:w-7 2xl:h-7' />
           </button>
+        ) : (
+          <Link to='/login'>
+            <button className='btn btn-ghost btn-circle'>
+              <FaSignInAlt className='w-5 h-5 2xl:w-7 2xl:h-7' />
+            </button>
+          </Link>
         )}
       </div>
     </div>
