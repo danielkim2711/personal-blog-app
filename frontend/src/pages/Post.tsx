@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { RootState } from '../app/store';
 import { useAppSelector, useAppDispatch } from '../app/hooks';
-import { getPost, reset } from '../features/posts/postSlice';
+import { getPost, deletePost, reset } from '../features/posts/postSlice';
 import { toast } from 'react-toastify';
 
 import { BsThreeDotsVertical } from 'react-icons/bs';
@@ -22,6 +22,7 @@ const Post = () => {
   const { title, imageUrl, body, category, createdAt } = post;
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const { postId } = useParams();
 
@@ -101,7 +102,15 @@ const Post = () => {
                   </Link>
                 </li>
                 <li>
-                  <div className='text-red-500'>
+                  <div
+                    className='text-red-500'
+                    onClick={() => {
+                      if (window.confirm('Are you sure you want to delete?')) {
+                        dispatch(deletePost(postId!));
+                        navigate('/');
+                      }
+                    }}
+                  >
                     <p>Delete Post</p>
                     <RiDeleteBin6Line className='w-5 h-5' />
                   </div>
