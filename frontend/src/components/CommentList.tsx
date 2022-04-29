@@ -1,6 +1,35 @@
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { RootState } from '../app/store';
+import { useAppSelector, useAppDispatch } from '../app/hooks';
+import { getComments, reset } from '../features/comments/commentSlice';
+import { toast } from 'react-toastify';
+
 import { AiOutlineComment } from 'react-icons/ai';
+import CommentItem from './CommentItem';
 
 const CommentList = () => {
+  const { comments, isError, message } = useAppSelector(
+    (state: RootState) => state.comments
+  );
+  const dispatch = useAppDispatch();
+
+  const { postId } = useParams();
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    }
+
+    dispatch(getComments(postId!));
+
+    return () => {
+      dispatch(reset());
+    };
+
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <div
       tabIndex={0}
@@ -10,38 +39,20 @@ const CommentList = () => {
       <div className='collapse-title text-xl font-medium pb-0'>
         <div className='flex items-center mb-4'>
           <AiOutlineComment className='w-6 h-6' />
-          <span className='ml-1 text-sm font-light'>Comments 10</span>
+          <span className='ml-1 text-sm font-light'>{`Comments ${comments.length}`}</span>
         </div>
       </div>
       <div className='collapse-content px-6'>
         <div className='border-t-2 mb-4'></div>
-        <div className='flex items-center mb-1'>
-          <div className='avatar placeholder mr-1.5'>
-            <div className='bg-neutral-focus text-neutral-content rounded-full w-6'>
-              <span className='text-xs'>D</span>
-            </div>
-          </div>
-          <h1 className='font-semibold'>Daniel</h1>
-        </div>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum illum
-          pariatur fugiat porro quasi neque atque veritatis eveniet aspernatur
-          impedit voluptates soluta ullam repellendus iure qui asperiores
-          corrupti, similique, esse consequatur nostrum nesciunt hic quia? Iste
-          beatae, eos voluptatum nisi eveniet ea natus laboriosam officia
-          architecto iusto eum vero odit!
-        </p>
-        <p className='mb-4 text-gray-400 text-xs font-light'>10. 04. 2022</p>
-        <div className='flex items-center mb-1'>
-          <div className='avatar placeholder mr-1.5'>
-            <div className='bg-neutral-focus text-neutral-content rounded-full w-6'>
-              <span className='text-xs'>J</span>
-            </div>
-          </div>
-          <h1 className='font-semibold'>James</h1>
-        </div>
-        <p>Awesome nice!</p>
-        <p className='mb-4 text-gray-400 text-xs font-light'>10. 04. 2022</p>
+        {comments.length > 0 ? (
+          comments.map((comment) => (
+            <CommentItem key={comment._id} comment={comment} />
+          ))
+        ) : (
+          <h5 className='font-light'>
+            No Comments Yet. Be the first one to comment!
+          </h5>
+        )}
         <div className='mt-4 mb-2'>
           <input
             type='text'
@@ -58,7 +69,7 @@ const CommentList = () => {
           <input
             type='text'
             placeholder='Write a comment...'
-            className='input input-bordered w-full'
+            className='input input-bordered w-full pr-24'
           />
           <button
             type='submit'
