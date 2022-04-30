@@ -66,7 +66,7 @@ const CommentInput = () => {
             required
           />
         </div>
-        <div className='relative mb-4'>
+        <div className='relative mb-6'>
           <input
             type='text'
             placeholder='Write a comment...'
