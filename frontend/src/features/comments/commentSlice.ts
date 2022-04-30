@@ -43,6 +43,30 @@ export const getComments = createAsyncThunk(
   }
 );
 
+export const createComment = createAsyncThunk(
+  'comments/create',
+  async (
+    {
+      commentData,
+      postId,
+    }: { commentData: object; postId: string | undefined },
+    thunkAPI
+  ) => {
+    try {
+      return await commentService.createComment(commentData, postId);
+    } catch (error: any) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const commentSlice = createSlice({
   name: 'comments',
   initialState,
@@ -60,6 +84,19 @@ export const commentSlice = createSlice({
         state.comments = action.payload;
       })
       .addCase(getComments.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(createComment.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(createComment.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.comments.push(action.payload);
+      })
+      .addCase(createComment.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

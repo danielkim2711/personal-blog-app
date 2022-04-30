@@ -6,6 +6,7 @@ import { getComments, reset } from '../features/comments/commentSlice';
 import { toast } from 'react-toastify';
 
 import { AiOutlineComment } from 'react-icons/ai';
+import CommentInput from './CommentInput';
 import CommentItem from './CommentItem';
 
 const CommentList = () => {
@@ -43,7 +44,10 @@ const CommentList = () => {
         </div>
       </div>
       <div className='collapse-content px-6'>
-        <div className='border-t-2 mb-4'></div>
+        <div className='border-t-2'></div>
+
+        <CommentInput />
+
         {comments.length > 0 ? (
           comments.map((comment) => (
             <CommentItem key={comment._id} comment={comment} />
@@ -53,31 +57,6 @@ const CommentList = () => {
             No Comments Yet. Be the first one to comment!
           </h5>
         )}
-        <div className='mt-4 mb-2'>
-          <input
-            type='text'
-            placeholder='Name'
-            className='input input-bordered mr-4'
-          />
-          <input
-            type='password'
-            placeholder='Password'
-            className='input input-bordered'
-          />
-        </div>
-        <div className='relative'>
-          <input
-            type='text'
-            placeholder='Write a comment...'
-            className='input input-bordered w-full pr-24'
-          />
-          <button
-            type='submit'
-            className='absolute btn btn-active btn-ghost right-0'
-          >
-            submit
-          </button>
-        </div>
       </div>
     </div>
   );
