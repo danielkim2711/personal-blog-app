@@ -1,9 +1,44 @@
+import { useParams } from 'react-router-dom';
+import { RootState } from '../app/store';
+import { useAppSelector, useAppDispatch } from '../app/hooks';
+import { deleteComment } from '../features/comments/commentSlice';
+
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { HiOutlinePencilAlt } from 'react-icons/hi';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 
 const CommentItem = ({ comment }: { comment: any }) => {
   const { name, body, createdAt } = comment;
+
+  const { user } = useAppSelector((state: RootState) => state.auth);
+
+  const { postId } = useParams();
+  const dispatch = useAppDispatch();
+
+  const handleDelete = () => {
+    if (!user || !user.isAdmin) {
+      const password = prompt('Please enter your password');
+
+      if (!password) {
+        return;
+      } else {
+        dispatch(
+          deleteComment({ _id: '', password, postId, commentId: comment._id })
+        );
+      }
+    } else {
+      if (window.confirm('Are you sure you want to delete?')) {
+        dispatch(
+          deleteComment({
+            _id: user._id,
+            password: '',
+            postId,
+            commentId: comment._id,
+          })
+        );
+      }
+    }
+  };
 
   return (
     <>
@@ -48,7 +83,7 @@ const CommentItem = ({ comment }: { comment: any }) => {
               </div>
             </li>
             <li>
-              <div className='text-red-500'>
+              <div className='text-red-500' onClick={handleDelete}>
                 <p>Delete Comment</p>
                 <RiDeleteBin6Line className='w-5 h-5' />
               </div>

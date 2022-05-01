@@ -15,9 +15,9 @@ interface IPost {
 interface PostState {
   posts: IPost[];
   post: IPost;
-  isError: Boolean;
-  isSuccess: Boolean;
-  isLoading: Boolean;
+  isError: boolean;
+  isSuccess: boolean;
+  isLoading: boolean;
   message: any;
 }
 

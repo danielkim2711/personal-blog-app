@@ -3,25 +3,18 @@ import { useParams } from 'react-router-dom';
 import { RootState } from '../app/store';
 import { useAppSelector, useAppDispatch } from '../app/hooks';
 import { getComments, reset } from '../features/comments/commentSlice';
-import { toast } from 'react-toastify';
 
 import { AiOutlineComment } from 'react-icons/ai';
 import CommentInput from './CommentInput';
 import CommentItem from './CommentItem';
 
 const CommentList = () => {
-  const { comments, isError, message } = useAppSelector(
-    (state: RootState) => state.comments
-  );
+  const { comments } = useAppSelector((state: RootState) => state.comments);
   const dispatch = useAppDispatch();
 
   const { postId } = useParams();
 
   useEffect(() => {
-    if (isError) {
-      toast.error(message);
-    }
-
     dispatch(getComments(postId!));
 
     return () => {

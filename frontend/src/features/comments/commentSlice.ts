@@ -11,9 +11,9 @@ interface CommentState {
     createdAt: Date;
     updatedAt: Date;
   }[];
-  isError: Boolean;
-  isSuccess: Boolean;
-  isLoading: Boolean;
+  isError: boolean;
+  isSuccess: boolean;
+  isLoading: boolean;
   message: any;
 }
 
@@ -67,11 +67,52 @@ export const createComment = createAsyncThunk(
   }
 );
 
+export const deleteComment = createAsyncThunk(
+  'comments/delete',
+  async (
+    {
+      _id,
+      password,
+      postId,
+      commentId,
+    }: {
+      _id: string;
+      password: string;
+      postId: string | undefined;
+      commentId: string;
+    },
+    thunkAPI
+  ) => {
+    try {
+      return await commentService.deleteComment(
+        _id,
+        password,
+        postId,
+        commentId
+      );
+    } catch (error: any) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const commentSlice = createSlice({
   name: 'comments',
   initialState,
   reducers: {
-    reset: () => initialState,
+    reset: (state) => {
+      state.isError = false;
+      state.isSuccess = false;
+      state.isLoading = false;
+      state.message = '';
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -97,6 +138,21 @@ export const commentSlice = createSlice({
         state.comments.push(action.payload);
       })
       .addCase(createComment.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(deleteComment.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteComment.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.comments = state.comments.filter(
+          (comment) => comment._id !== action.payload._id
+        );
+      })
+      .addCase(deleteComment.rejected, (state, action: any) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

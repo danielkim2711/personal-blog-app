@@ -60,6 +60,7 @@ const loginUser = asyncHandler(async (req, res) => {
       name: user.name,
       imageUrl: user.imageUrl,
       email: user.email,
+      isAdmin: user.isAdmin,
       token: generateToken(user._id),
     });
   } else {

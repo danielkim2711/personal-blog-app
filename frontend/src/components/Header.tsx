@@ -1,4 +1,3 @@
-import React from 'react';
 import myImage from '../assets/images/daniel_kim.jpeg';
 
 const Header = () => {

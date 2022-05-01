@@ -20,9 +20,24 @@ const createComment = async (
   return response.data;
 };
 
+const deleteComment = async (
+  _id: string,
+  password: string,
+  postId: string | undefined,
+  commentId: string
+) => {
+  const response = await axios.delete(
+    `${API_URL}${postId}/comments/${commentId}`,
+    { data: { _id, password } }
+  );
+
+  return response.data;
+};
+
 const commentService = {
   getComments,
   createComment,
+  deleteComment,
 };
 
 export default commentService;

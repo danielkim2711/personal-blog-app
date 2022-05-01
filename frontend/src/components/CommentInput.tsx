@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch } from '../app/hooks';
 import { createComment } from '../features/comments/commentSlice';
-import { toast } from 'react-toastify';
 
 const CommentInput = () => {
   const [formData, setFormData] = useState({
@@ -25,22 +24,19 @@ const CommentInput = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    try {
-      const commentData = {
-        name,
-        password,
-        body,
-      };
+    const commentData = {
+      name,
+      password,
+      body,
+    };
 
-      dispatch(createComment({ commentData, postId }));
-      setFormData({
-        name: '',
-        password: '',
-        body: '',
-      });
-    } catch (error: any) {
-      toast.error(error);
-    }
+    dispatch(createComment({ commentData, postId }));
+
+    setFormData({
+      name: '',
+      password: '',
+      body: '',
+    });
   };
 
   return (

@@ -14,11 +14,12 @@ interface AuthState {
     name: string;
     imageUrl: string;
     email: string;
+    isAdmin: boolean;
     token: string;
   } | null;
-  isError: Boolean;
-  isSuccess: Boolean;
-  isLoading: Boolean;
+  isError: boolean;
+  isSuccess: boolean;
+  isLoading: boolean;
   message: any;
 }
 

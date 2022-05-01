@@ -71,12 +71,18 @@ const updateComment = asyncHandler(async (req, res) => {
 });
 
 // @desc    Delete comment
-// @route   PUT /api/posts/:postId/comments/:id
+// @route   DELETE /api/posts/:postId/comments/:id
 // @access  Private
 const deleteComment = asyncHandler(async (req, res) => {
   const { _id, password } = req.body;
 
-  const user = await User.findById(_id);
+  let user;
+  if (!_id) {
+    delete _id;
+  } else {
+    user = await User.findById(_id);
+  }
+
   const comment = await Comment.findById(req.params.id);
 
   if (!comment) {
