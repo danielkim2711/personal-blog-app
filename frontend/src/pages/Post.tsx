@@ -2,7 +2,8 @@ import { useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { RootState } from '../app/store';
 import { useAppSelector, useAppDispatch } from '../app/hooks';
-import { getPost, deletePost, reset } from '../features/posts/postSlice';
+import { getPost, deletePost } from '../features/posts/postSlice';
+import { getComments } from '../features/comments/commentSlice';
 import { toast } from 'react-toastify';
 
 import { BsThreeDotsVertical } from 'react-icons/bs';
@@ -13,9 +14,7 @@ import CommentList from '../components/CommentList';
 import Spinner from '../assets/images/spinner.gif';
 
 const Post = () => {
-  const { post, isError, isLoading, message } = useAppSelector(
-    (state: RootState) => state.posts
-  );
+  const { post, isLoading } = useAppSelector((state: RootState) => state.posts);
 
   const { user } = useAppSelector((state: RootState) => state.auth);
 
@@ -27,18 +26,9 @@ const Post = () => {
   const { postId } = useParams();
 
   useEffect(() => {
-    if (isError) {
-      toast.error(message);
-    }
-
     dispatch(getPost(postId!));
-
-    return () => {
-      dispatch(reset());
-    };
-
-    // eslint-disable-next-line
-  }, []);
+    dispatch(getComments(postId!));
+  }, [dispatch, postId]);
 
   if (isLoading) {
     return (

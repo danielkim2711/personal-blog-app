@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import postService from './postService';
+import { toast } from 'react-toastify';
 
 interface IPost {
   _id: string;
@@ -15,19 +16,13 @@ interface IPost {
 interface PostState {
   posts: IPost[];
   post: IPost;
-  isError: boolean;
-  isSuccess: boolean;
   isLoading: boolean;
-  message: any;
 }
 
 const initialState: PostState = {
   posts: [],
   post: {} as PostState['post'],
-  isError: false,
-  isSuccess: false,
   isLoading: false,
-  message: '',
 };
 
 export const getPosts = createAsyncThunk(
@@ -88,9 +83,7 @@ export const deletePost = createAsyncThunk(
 export const postSlice = createSlice({
   name: 'posts',
   initialState,
-  reducers: {
-    reset: () => initialState,
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(getPosts.pending, (state) => {
@@ -98,44 +91,38 @@ export const postSlice = createSlice({
       })
       .addCase(getPosts.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.isSuccess = true;
         state.posts = action.payload;
       })
-      .addCase(getPosts.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = true;
-        state.message = action.payload;
+      .addCase(getPosts.rejected, (state) => {
+        state.isLoading = true;
+        toast.error('Error, failed to load the posts');
       })
       .addCase(getPost.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(getPost.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.isSuccess = true;
         state.post = action.payload;
       })
-      .addCase(getPost.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = true;
-        state.message = action.payload;
+      .addCase(getPost.rejected, (state) => {
+        state.isLoading = true;
+        toast.error('Error, failed to load the post');
       })
       .addCase(deletePost.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(deletePost.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.isSuccess = true;
         state.posts = state.posts.filter(
           (post) => post._id !== action.payload._id
         );
+        toast.success('Post successfully deleted');
       })
-      .addCase(deletePost.rejected, (state, action) => {
+      .addCase(deletePost.rejected, (state, action: any) => {
         state.isLoading = false;
-        state.isError = true;
-        state.message = action.payload;
+        toast.error(action.payload);
       });
   },
 });
 
-export const { reset } = postSlice.actions;
 export default postSlice.reducer;

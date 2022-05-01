@@ -1,31 +1,20 @@
 import { useEffect } from 'react';
 import { RootState } from '../app/store';
 import { useAppSelector, useAppDispatch } from '../app/hooks';
-import { getPosts, reset } from '../features/posts/postSlice';
-import { toast } from 'react-toastify';
+import { getPosts } from '../features/posts/postSlice';
 
 import Spinner from '../assets/images/spinner.gif';
 import PostItem from './PostItem';
 
 const PostList = () => {
-  const { posts, isError, isLoading, message } = useAppSelector(
+  const { posts, isLoading } = useAppSelector(
     (state: RootState) => state.posts
   );
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (isError) {
-      toast.error(message);
-    }
-
     dispatch(getPosts());
-
-    return () => {
-      dispatch(reset());
-    };
-
-    //eslint-disable-next-line
-  }, []);
+  }, [dispatch]);
 
   if (isLoading) {
     return (

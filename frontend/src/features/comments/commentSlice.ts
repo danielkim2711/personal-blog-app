@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import commentService from './commentService';
+import { toast } from 'react-toastify';
 
 interface CommentState {
   comments: {
@@ -11,18 +12,12 @@ interface CommentState {
     createdAt: Date;
     updatedAt: Date;
   }[];
-  isError: boolean;
-  isSuccess: boolean;
   isLoading: boolean;
-  message: any;
 }
 
 const initialState: CommentState = {
   comments: [],
-  isError: false,
-  isSuccess: false,
   isLoading: false,
-  message: '',
 };
 
 export const getComments = createAsyncThunk(
@@ -106,14 +101,7 @@ export const deleteComment = createAsyncThunk(
 export const commentSlice = createSlice({
   name: 'comments',
   initialState,
-  reducers: {
-    reset: (state) => {
-      state.isError = false;
-      state.isSuccess = false;
-      state.isLoading = false;
-      state.message = '';
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(getComments.pending, (state) => {
@@ -121,44 +109,39 @@ export const commentSlice = createSlice({
       })
       .addCase(getComments.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.isSuccess = true;
         state.comments = action.payload;
       })
-      .addCase(getComments.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = true;
-        state.message = action.payload;
+      .addCase(getComments.rejected, (state) => {
+        state.isLoading = true;
+        toast.error('Error, failed to load the comments');
       })
       .addCase(createComment.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(createComment.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.isSuccess = true;
         state.comments.push(action.payload);
+        toast.success('Comment successfully created');
       })
-      .addCase(createComment.rejected, (state, action) => {
+      .addCase(createComment.rejected, (state) => {
         state.isLoading = false;
-        state.isError = true;
-        state.message = action.payload;
+        toast.error('Error, failed to create the comment');
       })
       .addCase(deleteComment.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(deleteComment.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.isSuccess = true;
         state.comments = state.comments.filter(
           (comment) => comment._id !== action.payload._id
         );
+        toast.success('Comment successfully deleted');
       })
       .addCase(deleteComment.rejected, (state, action: any) => {
         state.isLoading = false;
-        state.isError = true;
-        state.message = action.payload;
+        toast.error(action.payload);
       });
   },
 });
 
-export const { reset } = commentSlice.actions;
 export default commentSlice.reducer;

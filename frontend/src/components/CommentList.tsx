@@ -1,28 +1,24 @@
-import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import { RootState } from '../app/store';
-import { useAppSelector, useAppDispatch } from '../app/hooks';
-import { getComments, reset } from '../features/comments/commentSlice';
+import { useAppSelector } from '../app/hooks';
 
 import { AiOutlineComment } from 'react-icons/ai';
 import CommentInput from './CommentInput';
 import CommentItem from './CommentItem';
 
+import Spinner from '../assets/images/spinner.gif';
+
 const CommentList = () => {
-  const { comments } = useAppSelector((state: RootState) => state.comments);
-  const dispatch = useAppDispatch();
+  const { comments, isLoading } = useAppSelector(
+    (state: RootState) => state.comments
+  );
 
-  const { postId } = useParams();
-
-  useEffect(() => {
-    dispatch(getComments(postId!));
-
-    return () => {
-      dispatch(reset());
-    };
-
-    // eslint-disable-next-line
-  }, []);
+  if (isLoading) {
+    return (
+      <div className='flex justify-center'>
+        <img src={Spinner} alt='loading...' />
+      </div>
+    );
+  }
 
   return (
     <div
