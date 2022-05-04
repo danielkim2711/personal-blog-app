@@ -80,6 +80,28 @@ export const createPost = createAsyncThunk(
   }
 );
 
+export const updatePost = createAsyncThunk(
+  'posts/update',
+  async (
+    { postData, postId }: { postData: object; postId: string | undefined },
+    thunkAPI: any
+  ) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      return await postService.updatePost(postData, postId, token);
+    } catch (error: any) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const deletePost = createAsyncThunk(
   'posts/delete',
   async (postId: string, thunkAPI: any) => {
@@ -133,9 +155,23 @@ export const postSlice = createSlice({
       .addCase(createPost.fulfilled, (state, action) => {
         state.isLoading = false;
         state.posts.unshift(action.payload);
-        toast.success('Post successfully created');
+        toast.success('Post created successfully');
       })
       .addCase(createPost.rejected, (state, action: any) => {
+        state.isLoading = true;
+        toast.error(action.payload);
+      })
+      .addCase(updatePost.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updatePost.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.posts = state.posts.map((post) =>
+          post._id === action.payload._id ? action.payload : post
+        );
+        toast.success('Post updated successfully');
+      })
+      .addCase(updatePost.rejected, (state, action: any) => {
         state.isLoading = true;
         toast.error(action.payload);
       })
@@ -147,7 +183,7 @@ export const postSlice = createSlice({
         state.posts = state.posts.filter(
           (post) => post._id !== action.payload._id
         );
-        toast.success('Post successfully deleted');
+        toast.success('Post deleted successfully');
       })
       .addCase(deletePost.rejected, (state, action: any) => {
         state.isLoading = false;

@@ -25,6 +25,21 @@ const createPost = async (postData: object, token: string) => {
   return response.data;
 };
 
+const updatePost = async (
+  postData: object,
+  postId: string | undefined,
+  token: string
+) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  const response = await axios.put(`${API_URL}${postId}`, postData, config);
+
+  return response.data;
+};
+
 const deletePost = async (postId: string, token: string) => {
   const config = {
     headers: {
@@ -40,6 +55,7 @@ const postService = {
   getPosts,
   getPost,
   createPost,
+  updatePost,
   deletePost,
 };
 

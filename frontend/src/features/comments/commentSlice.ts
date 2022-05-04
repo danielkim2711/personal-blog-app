@@ -121,7 +121,7 @@ export const commentSlice = createSlice({
       .addCase(createComment.fulfilled, (state, action) => {
         state.isLoading = false;
         state.comments.push(action.payload);
-        toast.success('Comment successfully created');
+        toast.success('Comment created successfully');
       })
       .addCase(createComment.rejected, (state) => {
         state.isLoading = false;
@@ -135,7 +135,7 @@ export const commentSlice = createSlice({
         state.comments = state.comments.filter(
           (comment) => comment._id !== action.payload._id
         );
-        toast.success('Comment successfully deleted');
+        toast.success('Comment deleted successfully');
       })
       .addCase(deleteComment.rejected, (state, action: any) => {
         state.isLoading = false;

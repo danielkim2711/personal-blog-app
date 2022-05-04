@@ -17,7 +17,11 @@ const NewPost = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     setFormData((prevState) => ({
       ...prevState,
       [e.target.id]: e.target.value,
@@ -71,15 +75,14 @@ const NewPost = () => {
             />
           </section>
           <section className='border-b-2 flex justify-center'>
-            <input
-              type='text'
-              placeholder='body'
+            <textarea
+              placeholder='What are your thoughts for today?'
               className='py-3 min-w-[90%] min-h-[350px] outline-none text-xl font-light'
               id='body'
               value={body}
               onChange={handleChange}
               required
-            />
+            ></textarea>
           </section>
           <section className='mx-4 py-4 border-b-2 flex justify-between items-center'>
             <h1>Category</h1>
