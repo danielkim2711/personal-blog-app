@@ -122,7 +122,7 @@ const Post = () => {
         </div>
       </div>
       <img src={imageUrl} alt='' />
-      <p className='py-8'>{body}</p>
+      <p className='py-8 whitespace-pre-wrap'>{body}</p>
       <CommentList />
     </div>
   );
