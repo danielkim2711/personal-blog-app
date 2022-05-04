@@ -9,6 +9,7 @@ import Description from './components/Description';
 import PostList from './components/PostList';
 import PrivateRoute from './components/PrivateRoute';
 
+import About from './pages/About';
 import Login from './pages/Login';
 import Post from './pages/Post';
 import NewPost from './pages/NewPost';
@@ -27,6 +28,15 @@ function App() {
                 <Header />
                 <Description />
                 <PostList />
+              </>
+            }
+          />
+          <Route
+            path='/about'
+            element={
+              <>
+                <Navbar />
+                <About />
               </>
             }
           />
