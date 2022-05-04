@@ -61,6 +61,25 @@ export const getPost = createAsyncThunk(
   }
 );
 
+export const createPost = createAsyncThunk(
+  'posts/create',
+  async (postData: object, thunkAPI: any) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      return await postService.createPost(postData, token);
+    } catch (error: any) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const deletePost = createAsyncThunk(
   'posts/delete',
   async (postId: string, thunkAPI: any) => {
@@ -107,6 +126,18 @@ export const postSlice = createSlice({
       .addCase(getPost.rejected, (state) => {
         state.isLoading = true;
         toast.error('Error, failed to load the post');
+      })
+      .addCase(createPost.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(createPost.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.posts.unshift(action.payload);
+        toast.success('Post successfully created');
+      })
+      .addCase(createPost.rejected, (state, action: any) => {
+        state.isLoading = true;
+        toast.error(action.payload);
       })
       .addCase(deletePost.pending, (state) => {
         state.isLoading = true;
