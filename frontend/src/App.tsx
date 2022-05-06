@@ -10,6 +10,7 @@ import PostList from './components/PostList';
 import PrivateRoute from './components/PrivateRoute';
 
 import About from './pages/About';
+import Categories from './pages/Categories';
 import Login from './pages/Login';
 import Post from './pages/Post';
 import NewPost from './pages/NewPost';
@@ -40,6 +41,7 @@ function App() {
               </>
             }
           />
+          <Route path='/categories' element={<Categories />} />
           <Route path='/login' element={<Login />} />
           <Route path='/new-post' element={<PrivateRoute />}>
             <Route path='/new-post' element={<NewPost />} />
