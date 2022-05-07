@@ -16,6 +16,12 @@ const Categories = () => {
     dispatch(getPosts());
   }, [dispatch]);
 
+  const getNumberOfPostsByCategory = (category: string): number => {
+    let numberOfPosts = 0;
+    posts.forEach((post) => post.category === category && numberOfPosts++);
+    return numberOfPosts;
+  };
+
   return (
     <>
       <nav className='p-3 border-b-2 relative'>
@@ -33,15 +39,15 @@ const Categories = () => {
         </div>
         <div className='flex justify-between items-center border-b-[1px] py-3'>
           <h2>Programming</h2>
-          <p>10</p>
+          <p>{getNumberOfPostsByCategory('Programming')}</p>
         </div>
         <div className='flex justify-between items-center border-b-[1px] py-3'>
           <h2>Sports</h2>
-          <p>10</p>
+          <p>{getNumberOfPostsByCategory('Sports')}</p>
         </div>
         <div className='flex justify-between items-center border-b-[1px] py-3'>
           <h2>Misc.</h2>
-          <p>10</p>
+          <p>{getNumberOfPostsByCategory('Misc.')}</p>
         </div>
       </section>
     </>
