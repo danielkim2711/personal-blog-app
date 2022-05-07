@@ -41,7 +41,15 @@ const Post = () => {
   return (
     <div className='mt-4 px-5 py-2 md:px-20 lg:px-60 xl:px-80 2xl:px-[500px] 3xl:px-[800px]'>
       <p className='text-green-500 font-semibold text-sm md:text-lg'>
-        {category}
+        <Link
+          to={
+            category === 'Misc.'
+              ? '/miscellaneous'
+              : `/${category?.toLowerCase()}`
+          }
+        >
+          {category}
+        </Link>
       </p>
       <h4 className='text-xl font-semibold md:text-3xl'>{title}</h4>
       <div className='flex justify-between items-center border-b-2 py-7 mb-6'>

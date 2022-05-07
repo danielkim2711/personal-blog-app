@@ -11,6 +11,9 @@ import PrivateRoute from './components/PrivateRoute';
 
 import About from './pages/About';
 import Categories from './pages/Categories';
+import Programming from './pages/Programming';
+import Sports from './pages/Sports';
+import Miscellaneous from './pages/Miscellaneous';
 import Login from './pages/Login';
 import Post from './pages/Post';
 import NewPost from './pages/NewPost';
@@ -42,6 +45,39 @@ function App() {
             }
           />
           <Route path='/categories' element={<Categories />} />
+          <Route
+            path='/programming'
+            element={
+              <>
+                <Navbar />
+                <Header />
+                <Description />
+                <Programming />
+              </>
+            }
+          />
+          <Route
+            path='/sports'
+            element={
+              <>
+                <Navbar />
+                <Header />
+                <Description />
+                <Sports />
+              </>
+            }
+          />
+          <Route
+            path='/miscellaneous'
+            element={
+              <>
+                <Navbar />
+                <Header />
+                <Description />
+                <Miscellaneous />
+              </>
+            }
+          />
           <Route path='/login' element={<Login />} />
           <Route path='/new-post' element={<PrivateRoute />}>
             <Route path='/new-post' element={<NewPost />} />
