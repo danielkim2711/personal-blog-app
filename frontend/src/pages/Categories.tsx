@@ -40,19 +40,19 @@ const Categories = () => {
               <p className='font-bold'>{posts.length}</p>
             </li>
           </Link>
-          <Link to='/programming'>
+          <Link to='/categories/programming'>
             <li className='flex justify-between items-center border-b-[1px] py-3'>
               <h2>Programming</h2>
               <p>{getNumberOfPostsByCategory('Programming')}</p>
             </li>
           </Link>
-          <Link to='/sports'>
+          <Link to='/categories/sports'>
             <li className='flex justify-between items-center border-b-[1px] py-3'>
               <h2>Sports</h2>
               <p>{getNumberOfPostsByCategory('Sports')}</p>
             </li>
           </Link>
-          <Link to='/miscellaneous'>
+          <Link to='/categories/miscellaneous'>
             <li className='flex justify-between items-center border-b-[1px] py-3'>
               <h2>Misc.</h2>
               <p>{getNumberOfPostsByCategory('Misc.')}</p>

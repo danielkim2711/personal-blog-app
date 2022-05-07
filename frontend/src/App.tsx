@@ -46,7 +46,7 @@ function App() {
           />
           <Route path='/categories' element={<Categories />} />
           <Route
-            path='/programming'
+            path='/categories/programming'
             element={
               <>
                 <Navbar />
@@ -57,7 +57,7 @@ function App() {
             }
           />
           <Route
-            path='/sports'
+            path='/categories/sports'
             element={
               <>
                 <Navbar />
@@ -68,7 +68,7 @@ function App() {
             }
           />
           <Route
-            path='/miscellaneous'
+            path='/categories/miscellaneous'
             element={
               <>
                 <Navbar />
