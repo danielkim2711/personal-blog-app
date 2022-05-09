@@ -24,10 +24,13 @@ const Miscellaneous = () => {
     );
   }
 
+  //TODO: Show the number of associated comments on each post.
+  //TODO: Add another section to display related posts on post page.
+
   return (
     <>
       <p className='p-4 border-b-2 font-semibold text-center'>MISCELLANEOUS</p>
-      {posts.length > 0 ? (
+      {posts.length > 0 && posts.some((post) => post.category === 'Misc.') ? (
         <div className='lg:flex lg:justify-center'>
           <ul className='lg:max-w-[672px] lg:grid lg:grid-cols-2 2xl:max-w-[1000px]'>
             {posts.map(

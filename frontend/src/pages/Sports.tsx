@@ -27,7 +27,7 @@ const Sports = () => {
   return (
     <>
       <p className='p-4 border-b-2 font-semibold text-center'>SPORTS</p>
-      {posts.length > 0 ? (
+      {posts.length > 0 && posts.some((post) => post.category === 'Sports') ? (
         <div className='lg:flex lg:justify-center'>
           <ul className='lg:max-w-[672px] lg:grid lg:grid-cols-2 2xl:max-w-[1000px]'>
             {posts.map(
