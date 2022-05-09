@@ -44,8 +44,8 @@ const Post = () => {
         <Link
           to={
             category === 'Misc.'
-              ? '/miscellaneous'
-              : `/${category?.toLowerCase()}`
+              ? '/categories/miscellaneous'
+              : `/categories/${category?.toLowerCase()}`
           }
         >
           {category}
