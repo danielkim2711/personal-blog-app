@@ -5,8 +5,8 @@ const About = () => {
         Daniel's Personal Blog App
       </h1>
       <p className='text-lg md:text-2xl font-light'>
-        This is a personal blog application built with MongoDB, Express.js,
-        React.js and Node.js.
+        This is a personal blog application built with the MERN Stack (MongoDB,
+        Express.js, React.js and Node.js).
       </p>
       <p className='text-lg md:text-2xl font-light'>
         Addition to that, Tailwind CSS and daisyUI are used for the styles.
@@ -18,8 +18,7 @@ const About = () => {
       </p>
       <p className='text-lg md:text-2xl font-light'>
         This website is fully responsible to any screen sizes, and all passwords
-        entered by users in this website are safely salted and hashed by
-        bcryptjs.
+        entered by users are safely salted and hashed by bcryptjs.
       </p>
       <p className='my-4 text-lg md:text-2xl font-light'>
         You can find me on{' '}
