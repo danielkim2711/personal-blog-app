@@ -2,6 +2,12 @@ import axios from 'axios';
 
 const API_URL = '/api/posts/';
 
+const getAllComments = async () => {
+  const response = await axios.get(`${API_URL}comments`);
+
+  return response.data;
+};
+
 const getComments = async (postId: string) => {
   const response = await axios.get(`${API_URL}${postId}/comments`);
 
@@ -35,6 +41,7 @@ const deleteComment = async (
 };
 
 const commentService = {
+  getAllComments,
   getComments,
   createComment,
   deleteComment,

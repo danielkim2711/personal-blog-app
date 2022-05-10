@@ -20,6 +20,24 @@ const initialState: CommentState = {
   isLoading: false,
 };
 
+export const getAllComments = createAsyncThunk(
+  'comments/getAllEachPost',
+  async (_, thunkAPI) => {
+    try {
+      return await commentService.getAllComments();
+    } catch (error: any) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const getComments = createAsyncThunk(
   'comments/getAll',
   async (postId: string, thunkAPI) => {
@@ -104,6 +122,17 @@ export const commentSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(getAllComments.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getAllComments.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.comments = action.payload;
+      })
+      .addCase(getAllComments.rejected, (state) => {
+        state.isLoading = true;
+        toast.error('Error, failed to load the comments');
+      })
       .addCase(getComments.pending, (state) => {
         state.isLoading = true;
       })

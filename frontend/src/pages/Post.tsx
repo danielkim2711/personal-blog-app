@@ -38,6 +38,8 @@ const Post = () => {
     );
   }
 
+  //TODO: Add another section to display related posts on post page.
+
   return (
     <div className='mt-4 px-5 py-2 md:px-20 lg:px-60 xl:px-80 2xl:px-[500px] 3xl:px-[800px]'>
       <p className='text-green-500 font-semibold text-sm md:text-lg'>

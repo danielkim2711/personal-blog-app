@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { RootState } from '../app/store';
 import { useAppSelector, useAppDispatch } from '../app/hooks';
 import { getPosts } from '../features/posts/postSlice';
+import { getAllComments } from '../features/comments/commentSlice';
 
 import Spinner from '../assets/images/spinner.gif';
 import PostItem from '../components/PostItem';
@@ -10,10 +11,14 @@ const Sports = () => {
   const { posts, isLoading } = useAppSelector(
     (state: RootState) => state.posts
   );
+
+  const { comments } = useAppSelector((state: RootState) => state.comments);
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getPosts());
+    dispatch(getAllComments());
   }, [dispatch]);
 
   if (isLoading) {
@@ -33,7 +38,7 @@ const Sports = () => {
             {posts.map(
               (post) =>
                 post.category === 'Sports' && (
-                  <PostItem key={post._id} post={post} />
+                  <PostItem key={post._id} post={post} comments={comments} />
                 )
             )}
           </ul>

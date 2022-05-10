@@ -4,6 +4,15 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/userModel');
 const Comment = require('../models/commentModel');
 
+// @desc    Get all comments
+// @route   GET /api/posts/comments
+// @access  Public
+const getAllComments = asyncHandler(async (req, res) => {
+  const comments = await Comment.find();
+
+  res.status(200).json(comments);
+});
+
 // @desc    Get comments
 // @route   GET /api/posts/:postId/comments
 // @access  Public
@@ -117,6 +126,7 @@ const deleteComment = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
+  getAllComments,
   getComments,
   createComment,
   updateComment,

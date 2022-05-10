@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
 
-const PostItem = ({ post }: { post: any }) => {
-  const { title, imageUrl, body, createdAt } = post;
+import { AiOutlineComment } from 'react-icons/ai';
+
+const PostItem = ({ post, comments }: { post: any; comments: any }) => {
+  const { _id, title, imageUrl, body, createdAt } = post;
 
   return (
     <Link to={`/posts/${post._id}`} className='lg:border-b-2 lg:mx-4'>
@@ -15,11 +17,20 @@ const PostItem = ({ post }: { post: any }) => {
               <p className='text-gray-500'>
                 {body.length > 50 ? body.substring(0, 50 - 1) + '...' : body}
               </p>
-              <p className='text-gray-400 mt-2 text-xs'>
+              <p className='text-gray-400 mt-2 text-xs lg:mb-4'>
                 {new Date(createdAt)
                   .toLocaleDateString('en-NZ')
                   .replace(/\//gi, '. ')}
               </p>
+              <div className='flex items-center'>
+                <AiOutlineComment className='text-gray-400 mr-1 lg:text-gray-500 lg:w-6 lg:h-6' />
+                <p className='text-sm text-gray-400 lg:text-gray-500 lg:text-base'>
+                  {
+                    comments.filter((comment: any) => comment.post === _id)
+                      .length
+                  }
+                </p>
+              </div>
             </div>
             <img
               className='rounded-md w-24 h-24 object-cover lg:w-full lg:h-auto'
@@ -35,11 +46,17 @@ const PostItem = ({ post }: { post: any }) => {
             <p className='text-gray-500'>
               {body.length > 50 ? body.substring(0, 50 - 1) + '...' : body}
             </p>
-            <p className='text-gray-400 mt-2 text-xs'>
+            <p className='text-gray-400 mt-2 text-xs lg:mb-4'>
               {new Date(createdAt)
                 .toLocaleDateString('en-NZ')
                 .replace(/\//gi, '. ')}
             </p>
+            <div className='flex items-center'>
+              <AiOutlineComment className='text-gray-400 mr-1 lg:text-gray-500 lg:w-6 lg:h-6' />
+              <p className='text-sm text-gray-400 lg:text-gray-500 lg:text-base'>
+                {comments.filter((comment: any) => comment.post === _id).length}
+              </p>
+            </div>
           </div>
         )}
       </li>
