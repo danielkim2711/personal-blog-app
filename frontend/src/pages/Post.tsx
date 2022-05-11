@@ -11,10 +11,13 @@ import { HiOutlinePencilAlt } from 'react-icons/hi';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { FaRegCopy } from 'react-icons/fa';
 import CommentList from '../components/CommentList';
+import MorePost from '../components/MorePost';
 import Spinner from '../assets/images/spinner.gif';
 
 const Post = () => {
-  const { post, isLoading } = useAppSelector((state: RootState) => state.posts);
+  const { posts, post, isLoading } = useAppSelector(
+    (state: RootState) => state.posts
+  );
 
   const { user } = useAppSelector((state: RootState) => state.auth);
 
@@ -37,8 +40,6 @@ const Post = () => {
       </div>
     );
   }
-
-  //TODO: Add another section to display related posts on post page.
 
   return (
     <div className='mt-4 px-5 py-2 md:px-20 lg:px-60 xl:px-80 2xl:px-[500px] 3xl:px-[800px]'>
@@ -134,6 +135,7 @@ const Post = () => {
       <img src={imageUrl} alt='' />
       <p className='py-8 whitespace-pre-wrap'>{body}</p>
       <CommentList />
+      <MorePost posts={posts} post={post} />
     </div>
   );
 };
