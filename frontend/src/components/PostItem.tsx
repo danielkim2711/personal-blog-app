@@ -7,10 +7,10 @@ const PostItem = ({ post, comments }: { post: any; comments: any }) => {
 
   return (
     <Link to={`/posts/${post._id}`} className='lg:border-b-2 lg:mx-4'>
-      <li className='flex p-4 justify-between border-b-2 cursor-pointer md:px-14 md:py-6 lg:px-0 lg:pt-5 lg:mx-0 lg:flex-col lg:justify-start lg:border-b-0'>
+      <li className='flex p-4 justify-between items-center border-b-2 cursor-pointer md:px-14 md:py-6 lg:items-start lg:px-0 lg:pt-5 lg:mx-0 lg:flex-col lg:justify-start lg:border-b-0'>
         {imageUrl ? (
           <>
-            <div className='mr-2 lg:order-1 lg:mt-2.5'>
+            <div className='lg:order-1 lg:mt-2.5'>
               <h3 className='text-lg font-medium'>
                 {title.length > 40 ? title.substring(0, 40 - 1) + '...' : title}
               </h3>

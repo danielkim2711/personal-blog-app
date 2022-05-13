@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { RootState } from '../app/store';
 import { useAppSelector, useAppDispatch } from '../app/hooks';
-import { getPost, deletePost } from '../features/posts/postSlice';
+import { getPosts, getPost, deletePost } from '../features/posts/postSlice';
 import { getComments } from '../features/comments/commentSlice';
 import { toast } from 'react-toastify';
 
@@ -29,6 +29,7 @@ const Post = () => {
   const { postId } = useParams();
 
   useEffect(() => {
+    dispatch(getPosts());
     dispatch(getPost(postId!));
     dispatch(getComments(postId!));
   }, [dispatch, postId]);
@@ -135,7 +136,7 @@ const Post = () => {
       <img src={imageUrl} alt='' />
       <p className='py-8 whitespace-pre-wrap'>{body}</p>
       <CommentList />
-      <MorePost posts={posts} post={post} />
+      <MorePost posts={posts} post={post} postId={postId} />
     </div>
   );
 };
