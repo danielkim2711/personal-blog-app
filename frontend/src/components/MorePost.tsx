@@ -26,8 +26,6 @@ const MorePost = ({
     dispatch(getAllComments());
   }, [dispatch]);
 
-  //TODO: Add another section to display related posts on post page.
-
   return (
     <>
       <Link
