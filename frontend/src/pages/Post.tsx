@@ -135,7 +135,7 @@ const Post = () => {
       </div>
       <img src={imageUrl} alt='' />
       <p className='py-8 whitespace-pre-wrap'>{body}</p>
-      <CommentList />
+      <CommentList postId={postId} />
       <MorePostList posts={posts} post={post} postId={postId} />
     </div>
   );

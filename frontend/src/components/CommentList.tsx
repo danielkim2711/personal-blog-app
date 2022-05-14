@@ -7,7 +7,7 @@ import CommentItem from './CommentItem';
 
 import Spinner from '../assets/images/spinner.gif';
 
-const CommentList = () => {
+const CommentList = ({ postId }: { postId: string | undefined }) => {
   const { comments, isLoading } = useAppSelector(
     (state: RootState) => state.comments
   );
@@ -29,7 +29,9 @@ const CommentList = () => {
       <div className='collapse-title text-xl font-medium pb-0'>
         <div className='flex items-center mb-4'>
           <AiOutlineComment className='w-6 h-6' />
-          <span className='ml-1 text-sm font-light'>{`Comments ${comments.length}`}</span>
+          <span className='ml-1 text-sm font-light'>{`Comments ${
+            comments.filter((comment) => comment.post === postId).length
+          }`}</span>
         </div>
       </div>
       <div className='collapse-content px-6'>
@@ -37,10 +39,13 @@ const CommentList = () => {
 
         <CommentInput />
 
-        {comments.length > 0 ? (
-          comments.map((comment) => (
-            <CommentItem key={comment._id} comment={comment} />
-          ))
+        {comments.filter((comment) => comment.post === postId).length > 0 ? (
+          comments.map(
+            (comment) =>
+              comment.post === postId && (
+                <CommentItem key={comment._id} comment={comment} />
+              )
+          )
         ) : (
           <h5 className='font-light'>
             No Comments Yet. Be the first one to comment!
