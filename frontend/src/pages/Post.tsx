@@ -11,7 +11,7 @@ import { HiOutlinePencilAlt } from 'react-icons/hi';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { FaRegCopy } from 'react-icons/fa';
 import CommentList from '../components/CommentList';
-import MorePost from '../components/MorePost';
+import MorePostList from '../components/MorePostList';
 import Spinner from '../assets/images/spinner.gif';
 
 const Post = () => {
@@ -136,7 +136,7 @@ const Post = () => {
       <img src={imageUrl} alt='' />
       <p className='py-8 whitespace-pre-wrap'>{body}</p>
       <CommentList />
-      <MorePost posts={posts} post={post} postId={postId} />
+      <MorePostList posts={posts} post={post} postId={postId} />
     </div>
   );
 };
