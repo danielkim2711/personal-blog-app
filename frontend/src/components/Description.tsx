@@ -7,7 +7,7 @@ const Description = () => {
         WHO AM I?
       </h2>
       <p className='mt-2 2xl:text-2xl'>
-        BCS student at Unitec, future front-end dev 💪
+        BCS student at Unitec, future web dev 💪
       </p>
       <ul className='flex'>
         <li className='mr-2'>
