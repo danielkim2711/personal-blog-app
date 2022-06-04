@@ -22,8 +22,8 @@ const MorePostItem = ({
                   post._id === postId && 'text-gray-400'
                 }`}
               >
-                {post.title.length > 40
-                  ? post.title.substring(0, 40 - 1) + '...'
+                {post.title.length > 20
+                  ? post.title.substring(0, 20 - 1) + '...'
                   : post.title}
               </h3>
               <p
@@ -31,8 +31,8 @@ const MorePostItem = ({
                   post._id === postId ? 'text-gray-400' : 'text-gray-500'
                 }
               >
-                {post.body.length > 50
-                  ? post.body.substring(0, 50 - 1) + '...'
+                {post.body.length > 30
+                  ? post.body.substring(0, 30 - 1) + '...'
                   : post.body}
               </p>
               <p className='text-gray-400 mt-2 text-xs lg:mb-4'>
@@ -63,8 +63,8 @@ const MorePostItem = ({
                 post._id === postId && 'text-gray-400'
               }`}
             >
-              {post.title.length > 40
-                ? post.title.substring(0, 40 - 1) + '...'
+              {post.title.length > 35
+                ? post.title.substring(0, 35 - 1) + '...'
                 : post.title}
             </h3>
             <p
@@ -72,8 +72,8 @@ const MorePostItem = ({
                 post._id === postId ? 'text-gray-400' : 'text-gray-500'
               }
             >
-              {post.body.length > 50
-                ? post.body.substring(0, 50 - 1) + '...'
+              {post.body.length > 45
+                ? post.body.substring(0, 45 - 1) + '...'
                 : post.body}
             </p>
             <p className='text-gray-400 mt-2 text-xs lg:mb-4'>

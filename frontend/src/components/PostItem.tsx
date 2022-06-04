@@ -12,10 +12,10 @@ const PostItem = ({ post, comments }: { post: any; comments: any }) => {
           <>
             <div className='lg:order-1 lg:mt-2.5'>
               <h3 className='text-lg font-medium'>
-                {title.length > 40 ? title.substring(0, 40 - 1) + '...' : title}
+                {title.length > 20 ? title.substring(0, 20 - 1) + '...' : title}
               </h3>
               <p className='text-gray-500'>
-                {body.length > 50 ? body.substring(0, 50 - 1) + '...' : body}
+                {body.length > 30 ? body.substring(0, 30 - 1) + '...' : body}
               </p>
               <p className='text-gray-400 mt-2 text-xs lg:mb-4'>
                 {new Date(createdAt)
@@ -41,10 +41,10 @@ const PostItem = ({ post, comments }: { post: any; comments: any }) => {
         ) : (
           <div>
             <h3 className='text-lg font-medium'>
-              {title.length > 40 ? title.substring(0, 40 - 1) + '...' : title}
+              {title.length > 35 ? title.substring(0, 35 - 1) + '...' : title}
             </h3>
             <p className='text-gray-500'>
-              {body.length > 50 ? body.substring(0, 50 - 1) + '...' : body}
+              {body.length > 45 ? body.substring(0, 45 - 1) + '...' : body}
             </p>
             <p className='text-gray-400 mt-2 text-xs lg:mb-4'>
               {new Date(createdAt)
