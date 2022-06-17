@@ -1,5 +1,9 @@
 # My Personal Blog App
 
+<img width="80%" src="./frontend/src/assets/images/preview.png" alt="personal blog" />
+
+<br/>
+
 This is a personal blog application built with the MERN Stack (MongoDB, Express.js, React.js and Node.js).
 
 Addition to that, Tailwind CSS and daisyUI are used for the styles.
