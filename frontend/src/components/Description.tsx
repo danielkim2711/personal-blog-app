@@ -21,7 +21,7 @@ const Description = () => {
         </li>
         <li>
           <a
-            href='https://www.linkedin.com/in/daniel-kim-674aa413b'
+            href='https://www.linkedin.com/in/danielkim2711/'
             target='_blank'
             rel='noreferrer'
           >
