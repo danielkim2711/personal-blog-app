@@ -12,4 +12,4 @@ Users are not meant to create, update or delete a post, but they can freely view
 
 This website is fully responsible to any screen sizes, and all passwords entered by users are safely salted and hashed by bcryptjs.
 
-https://www.danielkim2711.com
+https://danielpersonalblog.herokuapp.com
