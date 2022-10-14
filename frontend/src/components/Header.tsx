@@ -15,7 +15,7 @@ const Header = () => {
             A LIFESTYLE BLOG BY DANIEL KIM
           </h1>
           <p>
-            Kia ora, welcome to my blog! I am a New Zealand based Front End
+            Kia ora, welcome to my blog! I am a New Zealand based Full Stack
             Engineer. I like to explore new technologies and develop web
             applications. Feel free to leave your comments.
           </p>
